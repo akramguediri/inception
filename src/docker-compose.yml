@@ -1,46 +1,60 @@
 version: "3.8"
 
+volumes:
+  wordpress_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/aguediri/data/wordpress
+      o: bind
+  mariadb_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/aguediri/data/mariadb
+      o: bind
+
 services:
-    nginx:
-        build: requirements/nginx/.
-        container_name: nginx
-        ports:
-            - "443:443"
-        restart: always
-        env_file:
-          - .env
-        volumes:
-          - wordpress_v:/var/www/html
-        depends_on:
-          - wordpress
-        networks:
-          - inception
-    wordpress:
-      build: requirements/wordpress/.
-      container_name: wp-php
-      image: wordpress
-      env_file:
-        - .env
-      ports:
-        - "8080:8080"
-      volumes:
-        - wordpress_v:/var/www/html
-      networks:
-        - inception
-      depends_on:
-        - mariadb
-    mariadb:
-     container_name: mariadb
-     image: mariadb
-     build: ./requirements/mariadb/
-     restart: always
-     env_file:
+  nginx:
+    build: requirements/nginx/.
+    container_name: nginx
+    ports:
+      - "443:443"
+    restart: always
+    env_file:
       - .env
-     ports:
+    volumes:
+      - wordpress_v:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+  wordpress:
+    build: requirements/wordpress/.
+    container_name: wp-php
+    image: wordpress
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - wordpress_v:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build: ./requirements/mariadb/
+    restart: always
+    env_file:
+      - .env
+    ports:
       - "3306:3306"
-     volumes:
+    volumes:
       - mariadb_v:/var/lib/mysql
-     networks:
+    networks:
       - inception
 networks:
   inception:
