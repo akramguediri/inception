@@ -5,7 +5,44 @@ services:
         build: requirements/nginx/.
         container_name: nginx
         ports:
-            - "80:80"
+            - "443:443"
+        restart: always
+        env_file:
+          - .env
+        volumes:
+          - wordpress_v:/var/www/html
+        depends_on:
+          - wordpress
+        networks:
+          - inception
     wordpress:
       build: requirements/wordpress/.
       container_name: wp-php
+      image: wordpress
+      env_file:
+        - .env
+      ports:
+        - "8080:8080"
+      volumes:
+        - wordpress_v:/var/www/html
+      networks:
+        - inception
+      depends_on:
+        - mariadb
+    mariadb:
+     container_name: mariadb
+     image: mariadb
+     build: ./requirements/mariadb/
+     restart: always
+     env_file:
+      - .env
+     ports:
+      - "3306:3306"
+     volumes:
+      - mariadb_v:/var/lib/mysql
+     networks:
+      - inception
+networks:
+  inception:
+    name: inception
+    driver: bridge
