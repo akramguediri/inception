@@ -1,5 +1,5 @@
 # Docker Compose command
-DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
+DOCKER_COMPOSE = docker-compose -f src/docker-compose.yml
 
 # Volume directories
 VOLUME_DIR = /Users/aguediri/Documents/GitHub/inception/volumes
