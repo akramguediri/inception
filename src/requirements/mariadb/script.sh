@@ -1,9 +1,10 @@
 #!/bin/bash
 
-echo "Completed image"
 
 GREEN='\033[0;32m'
 NC='\033[0m'
+
+echo -e "${GREEN}====================>Completed image${NC}"
 
 MYSQL_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
 
