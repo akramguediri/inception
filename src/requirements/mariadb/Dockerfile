@@ -1,6 +1,8 @@
 FROM debian:bullseye
 
-RUN apt update && apt install -y mariadb-server openssl
+RUN apt update
+RUN apt install -y mariadb-server
+RUN apt install -y openssl
 
 COPY ./script.sh /mariadb/script.sh
 
