@@ -17,6 +17,7 @@ volumes:
 services:
   nginx:
     build: requirements/nginx/.
+    image: nginx
     container_name: nginx
     ports:
       - "443:443"
@@ -32,8 +33,8 @@ services:
 
   wordpress:
     build: requirements/wordpress/.
-    container_name: wordpress
     image: wordpress
+    container_name: wordpress
     env_file:
       - .env
     ports:
@@ -46,9 +47,9 @@ services:
       - mariadb
 
   mariadb:
-    container_name: mariadb
-    image: mariadb
     build: ./requirements/mariadb/
+    image: mariadb
+    container_name: mariadb
     restart: always
     env_file:
       - .env
