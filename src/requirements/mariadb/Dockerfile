@@ -1,7 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get upgrade
-RUN apt install -y mariadb-server
+RUN apt-get update && apt-get upgrade && apt-get install -y mariadb-server
 # RUN apt install -y openssl
 
 EXPOSE 3306
