@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y php php-fpm php-gd wget php-mysqli
+RUN apt-get install -y php php-fpm php-gd wget php-mysql
 
 RUN mkdir -p /var/www/html /run/php && chown -R www-data:www-data /var/www/html /run/php && chmod -R 777 /var/www/html
 
