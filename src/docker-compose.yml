@@ -29,6 +29,21 @@ services:
     networks:
       - inception
 
+  wordpress:
+      build: requirements/wordpress/.
+      image: wordpress
+      container_name: wordpress
+      env_file:
+        - .env
+      ports:
+        - "9000:9000"
+      volumes:
+        - wordpress_v:/var/www/html
+      networks:
+        - inception
+      depends_on:
+        - mariadb
+
   nginx:
     build: requirements/nginx/.
     image: nginx
@@ -44,21 +59,6 @@ services:
       - wordpress
     networks:
       - inception
-
-  wordpress:
-    build: requirements/wordpress/.
-    image: wordpress
-    container_name: wordpress
-    env_file:
-      - .env
-    ports:
-      - "9000:9000"
-    volumes:
-      - wordpress_v:/var/www/html
-    networks:
-      - inception
-    depends_on:
-      - mariadb
 
 networks:
   inception:
