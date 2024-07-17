@@ -23,7 +23,7 @@ done
 
 # Execute the initialization SQL script
 echo -e "${GREEN}Running initialization script...${NC}"
-mysql -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/mdb_init.sql
+mysql -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/db_init.sql
 
 # Start MariaDB in the foreground (required for container to remain running)
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
