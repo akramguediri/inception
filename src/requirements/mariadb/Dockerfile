@@ -14,7 +14,7 @@ chmod 777 /run/mysqld/mysqld.sock
 RUN mkdir -p /run/mysqld && \
 	touch /run/mysqld/mysqld.pid
 
-RUN chmod +x /script.sh && \
+RUN chmod +x mariadb/script.sh && \
 	chmod 777 /run/mysqld/mysqld.pid
 
 COPY ./script.sh /script.sh
