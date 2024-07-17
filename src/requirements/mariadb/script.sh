@@ -9,7 +9,7 @@ echo "FLUSH PRIVILEGES;
 	CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
 	GRANT ALL PRIVILEGES on \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
 	FLUSH PRIVILEGES;" > /etc/mysql/db_init.sql
-chmod 777 /etc/mysql/db_init.sql
+# chmod 777 /etc/mysql/db_init.sql
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
 mariadb-install-db
@@ -23,7 +23,7 @@ service mariadb start
 
 # Execute the initialization SQL script
 echo -e "${GREEN}Running initialization script...${NC}"
-mysql_upgrade -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/db_init.sql
+# mysql_upgrade -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/db_init.sql
 
 # Start MariaDB in the foreground (required for container to remain running)
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
