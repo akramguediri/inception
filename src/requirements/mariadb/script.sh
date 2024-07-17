@@ -21,8 +21,8 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
 
-mariadb-install-db
-# mariadb-upgrade
+# mariadb-install-db
+mariadb-upgrade
 # Wait for MySQL to be fully up and running
 # until mysqladmin ping &>/dev/null; do
 #   echo -e "${GREEN}Waiting for MySQL to be up...${NC}"
