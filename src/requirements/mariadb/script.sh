@@ -13,15 +13,15 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
 
-# Initialize the database if not already initialized
+# Check if MariaDB data directory is empty (indicating first run)
 if [ ! -d "/var/lib/mysql/mysql" ]; then
   echo -e "${GREEN}Initializing database...${NC}"
   mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 fi
 
-# Start MariaDB in the background
+# Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
-mysqld_safe --skip-networking &
+service mysql start
 
 # Wait for MariaDB to be fully up and running
 until mysqladmin ping --silent -u root -p"${DB_ROOT_PASSWORD}"; do
@@ -33,9 +33,10 @@ done
 echo -e "${GREEN}Running initialization script...${NC}"
 mysql -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/mdb_init.sql
 
-# Stop the background MariaDB process
-mysqladmin shutdown -u root -p"${DB_ROOT_PASSWORD}"
+# Stop MariaDB service
+echo -e "${GREEN}Stopping MariaDB...${NC}"
+service mysql stop
 
-# Start MariaDB in the foreground
+# Start MariaDB in the foreground (required for container to remain running)
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
 exec mysqld_safe
