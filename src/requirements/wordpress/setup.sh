@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Creating WordPress user..."
-wp user create "${WP_USER}" "${WP_USER_EMAIL}" --user_pass="${WP_USER_PASSWORD}" --role=author --allow-root
+wp user create "$WP_USER" "$WP_USER_EMAIL" --user_pass="$WP_USER_PASSWORD" --role=author --allow-root
 if [ $? -ne 0 ]; then
     echo "Error creating WordPress user."
     exit 1
