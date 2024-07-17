@@ -1,7 +1,6 @@
 FROM debian:bullseye
 
 RUN apt-get update
-RUN apt-get upgrade
 RUN apt-get install -y mariadb-server
 RUN apt install -y openssl
 
