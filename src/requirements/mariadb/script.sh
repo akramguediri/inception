@@ -30,4 +30,4 @@ mysql -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/mdb_init.sql
 
 # Start MariaDB in the foreground (required for container to remain running)
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
-exec mariadbd --user=mysql
+exec mariadb --user=mysql
