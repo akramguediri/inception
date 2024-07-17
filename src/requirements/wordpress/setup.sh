@@ -21,8 +21,8 @@ echo "Configuring wp-config.php..."
 cp wp-config-sample.php wp-config.php
 update_wp_config wp-config.php
 
-echo "Updating PHP-FPM configuration..."
-sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = 8080|g' /etc/php/8.2/fpm/pool.d/www.conf
+# echo "Updating PHP-FPM configuration..."
+# sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = 8080|g' /etc/php/8.2/fpm/pool.d/www.conf
 
 sleep 10
 
