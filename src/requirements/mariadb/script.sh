@@ -12,7 +12,7 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
-
+chmod 777 /etc/mysql/mdb_init.sql
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
 service mariadb start
