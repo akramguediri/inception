@@ -3,10 +3,10 @@
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-sed -i "s/127.0.0.1/0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf 
+# sed -i "s/127.0.0.1/0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Start the MySQL service
-service mysql start
+# service mysql start
 
 # Wait for MySQL to be fully up and running
 until mysqladmin ping &>/dev/null; do
@@ -22,6 +22,8 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
 
-kill $(cat /run/mysqld/mysqld.pid)
+# kill $(cat /run/mysqld/mysqld.pid)
 
-mysqld_safe
+mariadb-install-db
+
+# mysqld_safe
