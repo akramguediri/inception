@@ -4,7 +4,7 @@
 socket=/var/lib/mysql/mysql.sock
 
 [mysqld]
-init_file = /etc/mysql/mdb_init.sql
+init_file = /etc/mysql/db_init.sql
 
 user                    = mysql
 pid-file                = /run/mysqld/mysqld.pid
