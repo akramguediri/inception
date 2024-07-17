@@ -13,4 +13,4 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 WORKDIR /var/www/html
 
-CMD ["php-fpm8.2", "-F"]
+CMD ["php-fpm", "-F"]
