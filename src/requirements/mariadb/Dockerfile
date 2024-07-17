@@ -10,6 +10,7 @@ touch /run/mysqld/mysqld.sock && \
 chmod 777 /run/mysqld/mysqld.sock
 
 COPY ./script.sh /mariadb/script.sh
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
 
 RUN chmod 777 /mariadb/script.sh
 
