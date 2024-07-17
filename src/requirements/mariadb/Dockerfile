@@ -8,7 +8,7 @@ EXPOSE 3306
 
 COPY ./script.sh /script.sh
 COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY ./init.sql /etc/mysql/script.sh
+COPY ./db_init.sql /etc/mysql/script.sh
 
 # RUN mkdir -p /run/mysqld/ && \
 # chmod 777 /run/mysqld/ && \
