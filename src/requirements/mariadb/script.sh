@@ -3,17 +3,10 @@
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+# Set MariaDB configuration to allow remote connections
 # sed -i "s/127.0.0.1/0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Start the MySQL service
-# service mysql start
-# mysql -u root <<EOF
-# CREATE DATABASE IF NOT EXISTS ${DB_NAME};
-# CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
-# GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
-# ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
-# FLUSH PRIVILEGES;
-# EOF
+# Generate the initialization SQL script
 echo "FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS ${DB_NAME};
 CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
@@ -21,17 +14,29 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
 
-mariadb-install-db
-# mariadb-upgrade
-# Wait for MySQL to be fully up and running
-# until mysqladmin ping &>/dev/null; do
-#   echo -e "${GREEN}Waiting for MySQL to be up...${NC}"
-#   sleep 2
-# done
+# Initialize the database if not already initialized
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+  echo -e "${GREEN}Initializing database...${NC}"
+  mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+fi
 
+# Start MariaDB in the background
+echo -e "${GREEN}Starting MariaDB...${NC}"
+mysqld_safe --skip-networking &
 
-# kill $(cat /run/mysqld/mysqld.pid)
+# Wait for MariaDB to be fully up and running
+until mysqladmin ping --silent; do
+  echo -e "${GREEN}Waiting for MariaDB to be up...${NC}"
+  sleep 2
+done
 
-# tail -f
-# mysqld_safe
-exec mariadb --user=mysql
+# Execute the initialization SQL script
+echo -e "${GREEN}Running initialization script...${NC}"
+mysql -u root < /etc/mysql/mdb_init.sql
+
+# Stop the background MariaDB process
+mysqladmin shutdown
+
+# Start MariaDB in the foreground
+echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
+exec mysqld_safe
