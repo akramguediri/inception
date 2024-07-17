@@ -21,7 +21,7 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
-# Stop the service to allow the connection from any IP address from the network
+
 kill $(cat /run/mysqld/mysqld.pid)
 
 mysqld_safe
