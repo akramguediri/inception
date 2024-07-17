@@ -45,4 +45,4 @@ chmod -R 755 wp-content/uploads
 chown -R www-data:www-data wp-content/uploads
 
 echo "Starting PHP-FPM..."
-exec php-fpm -F
+exec php-fpm8.2 -F
