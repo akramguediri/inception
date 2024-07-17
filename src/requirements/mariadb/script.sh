@@ -15,8 +15,9 @@ EOF
 chmod 777 /etc/mysql/mdb_init.sql
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
-service mariadb start
+mariadb-install-db
 
+service mariadb start
 # Wait for MariaDB to be fully up and running
 until mysqladmin ping --silent -u root -p"${DB_ROOT_PASSWORD}"; do
   echo -e "${GREEN}Waiting for MariaDB to be up...${NC}"
@@ -27,10 +28,6 @@ done
 echo -e "${GREEN}Running initialization script...${NC}"
 mysql -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/mdb_init.sql
 
-# Stop MariaDB service
-echo -e "${GREEN}Stopping MariaDB...${NC}"
-service mariadb stop
-
 # Start MariaDB in the foreground (required for container to remain running)
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
-exec mysqld_safe
+exec mariadbd --user=mysql
