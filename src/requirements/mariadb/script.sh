@@ -15,11 +15,11 @@ echo -e "${GREEN}Starting MariaDB...${NC}"
 mariadb-install-db
 
 service mariadb start
-# Wait for MariaDB to be fully up and running
-until mysqladmin ping --silent -u root -p"${DB_ROOT_PASSWORD}"; do
-  echo -e "${GREEN}Waiting for MariaDB to be up...${NC}"
-  sleep 2
-done
+# # Wait for MariaDB to be fully up and running
+# until mysqladmin ping --silent -u root -p"${DB_ROOT_PASSWORD}"; do
+#   echo -e "${GREEN}Waiting for MariaDB to be up...${NC}"
+#   sleep 2
+# done
 
 # Execute the initialization SQL script
 echo -e "${GREEN}Running initialization script...${NC}"
