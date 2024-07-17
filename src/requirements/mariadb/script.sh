@@ -4,14 +4,11 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 # Generate the initialization SQL script
-cat <<EOF > /etc/mysql/mdb_init.sql
-FLUSH PRIVILEGES;
-CREATE DATABASE IF NOT EXISTS ${DB_NAME};
-CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
-FLUSH PRIVILEGES;
-EOF
+echo "FLUSH PRIVILEGES;
+	CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;
+	CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
+	GRANT ALL PRIVILEGES on \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
+	FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
 chmod 777 /etc/mysql/mdb_init.sql
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
