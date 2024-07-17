@@ -38,6 +38,11 @@ services:
       build: requirements/wordpress/.
       image: wordpress
       container_name: wordpress
+      environment:
+       WORDPRESS_DB_HOST: db
+       WORDPRESS_DB_USER: ${DB_USER}
+       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+       WORDPRESS_DB_NAME: ${DB_NAME}
       env_file:
         - .env
       ports:
