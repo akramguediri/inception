@@ -9,7 +9,7 @@ echo "FLUSH PRIVILEGES;
 	CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
 	GRANT ALL PRIVILEGES on \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
 	FLUSH PRIVILEGES;" > /etc/mysql/db_init.sql
-chmod 777 /etc/mysql/mdb_init.sql
+chmod 777 /etc/mysql/db_init.sql
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
 mariadb-install-db
