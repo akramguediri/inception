@@ -11,15 +11,15 @@ chmod 777 /run/mysqld/ && \
 touch /run/mysqld/mysqld.sock && \
 chmod 777 /run/mysqld/mysqld.sock
 
-RUN mkdir -p /run/mysqld && \
-	touch /run/mysqld/mysqld.pid
-
-RUN chmod +x mariadb/script.sh && \
-	chmod 777 /run/mysqld/mysqld.pid
 
 COPY ./script.sh /script.sh
 COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
 
 RUN chmod 777 /script.sh
+
+RUN mkdir -p /run/mysqld && \
+	touch /run/mysqld/mysqld.pid
+
+RUN chmod 777 /run/mysqld/mysqld.pid
 
 ENTRYPOINT ["/script.sh"]
