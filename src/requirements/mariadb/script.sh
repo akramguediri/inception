@@ -16,6 +16,7 @@ FLUSH PRIVILEGES;
 EOF
 
 mariadb-install-db
+mariadb-upgrade
 
 # Wait for MySQL to be fully up and running
 until mysqladmin ping &>/dev/null; do
@@ -26,5 +27,5 @@ done
 
 # kill $(cat /run/mysqld/mysqld.pid)
 
-# tail -f
+tail -f
 # mysqld_safe
