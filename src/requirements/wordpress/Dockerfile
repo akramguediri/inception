@@ -13,4 +13,4 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 WORKDIR /var/www/html
 
-CMD ["php-fpm", "-F"]
+ENTRYPOINT ["/usr/local/bin/setup.sh"]
