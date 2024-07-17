@@ -13,12 +13,6 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
 
-# Check if MariaDB data directory is empty (indicating first run)
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-  echo -e "${GREEN}Initializing database...${NC}"
-  mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-fi
-
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
 service mysql start
