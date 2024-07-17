@@ -26,4 +26,5 @@ EOF
 
 mariadb-install-db
 
+tail -f
 # mysqld_safe
