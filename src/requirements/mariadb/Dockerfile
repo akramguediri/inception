@@ -6,14 +6,15 @@ RUN apt install -y openssl
 
 EXPOSE 3306
 
+COPY ./script.sh /script.sh
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
+
 RUN mkdir -p /run/mysqld/ && \
 chmod 777 /run/mysqld/ && \
 touch /run/mysqld/mysqld.sock && \
 chmod 777 /run/mysqld/mysqld.sock
 
 
-COPY ./script.sh /script.sh
-COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
 
 RUN chmod 777 /script.sh
 
