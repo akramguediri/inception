@@ -7,13 +7,19 @@ NC='\033[0m'
 
 # Start the MySQL service
 # service mysql start
-mysql -u root <<EOF
+# mysql -u root <<EOF
+# CREATE DATABASE IF NOT EXISTS ${DB_NAME};
+# CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
+# GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
+# ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
+# FLUSH PRIVILEGES;
+# EOF
+echo "FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS ${DB_NAME};
 CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
 GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
-FLUSH PRIVILEGES;
-EOF
+FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
 
 mariadb-install-db
 mariadb-upgrade
