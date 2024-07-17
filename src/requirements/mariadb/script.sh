@@ -22,7 +22,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;" > /etc/mysql/mdb_init.sql
 
 mariadb-install-db
-mariadb-upgrade
+# mariadb-upgrade
 # Wait for MySQL to be fully up and running
 # until mysqladmin ping &>/dev/null; do
 #   echo -e "${GREEN}Waiting for MySQL to be up...${NC}"
