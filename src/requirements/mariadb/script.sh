@@ -26,5 +26,5 @@ done
 
 # kill $(cat /run/mysqld/mysqld.pid)
 
-tail -f
+# tail -f
 # mysqld_safe
