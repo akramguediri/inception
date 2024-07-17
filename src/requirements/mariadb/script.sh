@@ -7,13 +7,6 @@ NC='\033[0m'
 
 # Start the MySQL service
 # service mysql start
-
-# Wait for MySQL to be fully up and running
-until mysqladmin ping &>/dev/null; do
-  echo -e "${GREEN}Waiting for MySQL to be up...${NC}"
-  sleep 2
-done
-
 mysql -u root <<EOF
 CREATE DATABASE IF NOT EXISTS ${DB_NAME};
 CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
@@ -22,9 +15,16 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
 
-# kill $(cat /run/mysqld/mysqld.pid)
-
 mariadb-install-db
+
+# Wait for MySQL to be fully up and running
+until mysqladmin ping &>/dev/null; do
+  echo -e "${GREEN}Waiting for MySQL to be up...${NC}"
+  sleep 2
+done
+
+
+# kill $(cat /run/mysqld/mysqld.pid)
 
 tail -f
 # mysqld_safe
