@@ -1,7 +1,7 @@
 
 [server]
 
-socket=/var/lib/mysql/mysql.sock
+socket=/run/mysqld/mysqld.sock
 
 [mysqld]
 init_file = /etc/mysql/mdb_init.sql
