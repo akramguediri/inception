@@ -11,6 +11,6 @@ chmod 777 /run/mysqld/mysqld.sock
 
 COPY ./script.sh /mariadb/script.sh
 
-RUN chmod +x /mariadb/script.sh
+RUN chmod 777 /mariadb/script.sh
 
 ENTRYPOINT ["/mariadb/script.sh"]
