@@ -35,10 +35,6 @@ fi
 
 echo "Creating WordPress user..."
 wp user create "$WP_USER" "$WP_USER_EMAIL" --user_pass="$WP_USER_PASSWORD" --role=author --allow-root
-if [ $? -ne 0 ]; then
-    echo "Error creating WordPress user."
-    exit 1
-fi
 
 echo "Updating WordPress options..."
 wp option update home "https://aguediri.42.fr" --allow-root
