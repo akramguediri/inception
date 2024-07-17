@@ -28,14 +28,26 @@ until mysqladmin ping &>/dev/null; do
   sleep 2
 done
 
+# MySQL credentials
+DB_HOST="localhost"
+DB_USER="root"
+DB_PASS="your_root_password"
+DB_NAME="your_database_name"
+DB_ROOT_PASS="your_root_password"
+
+# MySQL commands using mysqli
+mysql_exec() {
+    local query="$1"
+    mysql -u "$DB_USER" -p"$DB_PASS" -e "$query"
+}
+
 # Perform MySQL database setup
-mysql -u root <<EOF
-CREATE DATABASE IF NOT EXISTS ${DB_NAME};
-CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
-FLUSH PRIVILEGES;
-EOF
+echo -e "${GREEN}Setting up MySQL database...${NC}"
+mysql_exec "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+mysql_exec "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';"
+mysql_exec "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';"
+mysql_exec "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASS';"
+mysql_exec "FLUSH PRIVILEGES;"
 
 # Stop MySQL service to apply network changes
 echo -e "${GREEN}Stopping MySQL service to apply network changes...${NC}"
