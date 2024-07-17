@@ -2,7 +2,6 @@
 
 GREEN='\033[0;32m'
 NC='\033[0m'
-
 # Generate the initialization SQL script
 cat <<EOF > /etc/mysql/mdb_init.sql
 FLUSH PRIVILEGES;
@@ -16,6 +15,7 @@ EOF
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
 service mysql start
+service mariadb start
 
 # Wait for MariaDB to be fully up and running
 until mysqladmin ping --silent -u root -p"${DB_ROOT_PASSWORD}"; do
