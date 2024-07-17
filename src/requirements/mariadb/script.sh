@@ -2,6 +2,7 @@
 
 GREEN='\033[0;32m'
 NC='\033[0m'
+
 # Generate the initialization SQL script
 cat <<EOF > /etc/mysql/mdb_init.sql
 FLUSH PRIVILEGES;
@@ -14,7 +15,6 @@ EOF
 
 # Start MariaDB service
 echo -e "${GREEN}Starting MariaDB...${NC}"
-service mysql start
 service mariadb start
 
 # Wait for MariaDB to be fully up and running
@@ -29,7 +29,7 @@ mysql -u root -p"${DB_ROOT_PASSWORD}" < /etc/mysql/mdb_init.sql
 
 # Stop MariaDB service
 echo -e "${GREEN}Stopping MariaDB...${NC}"
-service mysql stop
+service mariadb stop
 
 # Start MariaDB in the foreground (required for container to remain running)
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
