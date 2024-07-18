@@ -13,6 +13,7 @@ RUN chmod +x /etc/php/8.2/fpm/pool.d/www.conf
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar &&  mv wp-cli.phar /usr/local/bin/wp
 
+EXPOSE 9000
 WORKDIR /var/www/html
 
 ENTRYPOINT ["/usr/local/bin/setup.sh"]
