@@ -42,7 +42,8 @@ wp option update siteurl "https://aguediri.42.fr" --allow-root
 
 echo "Setting permissions for wp-content/uploads..."
 chmod -R 755 wp-content/uploads
-chown -R www-data:www-data wp-content/uploads
+# chown -R www-data:www-data wp-content/uploads
+chown -R www-data:www-data /var/www/html/*
 
 echo "Starting PHP-FPM..."
 exec php-fpm7.4 -F
