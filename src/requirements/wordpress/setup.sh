@@ -46,3 +46,4 @@ chown -R www-data:www-data wp-content/uploads
 
 echo "Starting PHP-FPM..."
 exec php-fpm7.4 -F
+echo "Finished!"
