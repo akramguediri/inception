@@ -46,5 +46,5 @@ chmod -R 755 wp-content/uploads
 chown -R www-data:www-data /var/www/html/*
 
 echo "Starting PHP-FPM..."
-php-fpm7.4 -F
+exec php-fpm7.4 -F
 echo "Finished!"
