@@ -2,12 +2,12 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    ssl_certificate /etc/nginx/ssl/aguediri.crt;
+	ssl_certificate_key /etc/nginx/ssl/aguediri.key;
 
-    ssl_protocols TLSv1.2;
+	ssl_protocols TLSv1.3;
 
-    index index.php;
+    index index.php index.html;
     root /var/www/html;
     server_name $DOMAIN_NAME;
 
