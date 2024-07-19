@@ -1,50 +1,37 @@
 #!/bin/bash
 
-update_wp_config() {
-    local file=$1
-    sed -i -r "s/database_name_here/$DB_NAME/" "$file"
-    sed -i -r "s/username_here/$DB_USER/" "$file"
-    sed -i -r "s/password_here/$DB_PASSWORD/" "$file"
-    sed -i -r "s/localhost/mariadb/" "$file"
-}
+cd /var/www/html
+wp core download --allow-root
+echo "creating configs... "
+wp config create --force \
+					--url=https://aguediri.42.fr \
+					--dbname=$DB_NAME \
+					--dbuser=$DB_USER \
+					--dbpass=$DB_PASSWORD \
+					--dbhost=mariadb:3306 \
+					--allow-root
 
-if [ ! -f /var/www/html/wp-config.php ]; then
-    echo "Downloading WordPress core..."
-    wp core download --allow-root
-    if [ $? -ne 0 ]; then
-        echo "Error downloading WordPress core."
-        exit 1
-    fi
-fi
+echo "installing core... "
+wp core install --url=https://aguediri.42.fr \
+				--title=$WP_TITLE \
+				--admin_user=$WP_ADMIN_USER \
+				--admin_password=$WP_ADMIN_PASSWORD \
+				--admin_email=$WP_ADMIN_EMAIL \
+				--skip-email \
+				--allow-root
 
-echo "Configuring wp-config.php..."
-cp wp-config-sample.php wp-config.php
-update_wp_config wp-config.php
+echo "creating user... "
+wp user create ${DB_USER} \
+				${WP_USER_EMAIL} \
+				--user_pass=${WP_ADMIN_PASSWORD} \
+				--allow-root
 
-# echo "Updating PHP-FPM configuration..."
-# sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = 8080|g' /etc/php/8.2/fpm/pool.d/www.conf
+echo "setting up wp..."
+wp option update home https://aguediri.42.fr --allow-root
+wp option update siteurl  https://aguediri.42.fr --allow-root
 
-sleep 10
-
-echo "Installing WordPress..."
-wp core install --url="$DOMAIN_NAME" --title="$WP_TITLE" --admin_user="$WP_ADMIN_USER" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL" --allow-root
-if [ $? -ne 0 ]; then
-    echo "Error installing WordPress."
-    exit 1
-fi
-
-echo "Creating WordPress user..."
-wp user create "$WP_USER" "$WP_USER_EMAIL" --user_pass="$WP_USER_PASSWORD" --role=author --allow-root
-
-echo "Updating WordPress options..."
-wp option update home "https://aguediri.42.fr" --allow-root
-wp option update siteurl "https://aguediri.42.fr" --allow-root
-
-echo "Setting permissions for wp-content/uploads..."
-chmod -R 755 wp-content/uploads
-# chown -R www-data:www-data wp-content/uploads
 chown -R www-data:www-data /var/www/html/*
 
-echo "Starting PHP-FPM..."
+echo "starting php-fpm7.4"
 exec php-fpm7.4 -F
 echo "Finished!"
