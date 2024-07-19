@@ -33,5 +33,5 @@ wp option update siteurl  https://aguediri.42.fr --allow-root
 chown -R www-data:www-data /var/www/html/*
 
 echo "starting php-fpm7.4"
-exec php-fpm7.4 -F
+exec php-fpm8.2 -F
 echo "Finished!"
