@@ -32,11 +32,6 @@ wp option update siteurl  https://aguediri.42.fr --allow-root
 
 chown -R www-data:www-data /var/www/html/*
 
-echo "Generating authentication cookie..."
-# Log in and create an authentication cookie
-COOKIE=$(wp eval "echo json_encode(wp_create_nonce('wp_rest')); exit;" --url=https://aguediri.42.fr --user=$WP_ADMIN_USER --allow-root)
-COOKIE_NAME="wordpress_logged_in_"$(echo $COOKIE | jq -r '.value')
-
 echo "starting php-fpm7.4"
 exec php-fpm7.4 -F
 echo "Finished!"
