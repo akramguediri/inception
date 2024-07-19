@@ -1,22 +1,24 @@
 server {
-	listen 443 ssl http2; # Listen on port 443
-	listen [::]:443 ssl http2; #Listen on IPv6 address and port 443
-	server_name aguediri.42.fr www.aguediri.42.fr;
+    listen 443 ssl http2; # Listen on port 443
+    listen [::]:443 ssl http2; # Listen on IPv6 address and port 443
+    server_name aguediri.42.fr www.aguediri.42.fr;
 
-	ssl_protocols TLSv1.3;
+    ssl_certificate /etc/nginx/ssl/aguediri.crt;
+    ssl_certificate_key /etc/nginx/ssl/aguediri.key;
+    
+    ssl_protocols TLSv1.3;
 
-	root /var/www/html;
-	index index.php index.html;
+    root /var/www/html;
+    index index.php index.html;
 
-	location / {
-		try_files $uri $uri/ /index.php?$args;
-	}
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
 
-	location ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass wordpress:9000;
-		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-		include fastcgi_params;
-	}
-
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass wordpress:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
 }
