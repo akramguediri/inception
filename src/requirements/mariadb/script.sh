@@ -12,4 +12,4 @@ echo -e "${GREEN}Installing MariaDB...${NC}"
 mariadb-install-db
 
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
-exec mysqld_safe
+exec mariadbd --user=mysql
