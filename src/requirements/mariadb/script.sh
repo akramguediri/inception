@@ -13,6 +13,7 @@ echo "
 	CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;
 	CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
 	GRANT ALL PRIVILEGES on \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
+	ALTER USER 'root'@'localhost' IDENTIFIED BY '$WP_ADMIN_PASSWORD';
 	FLUSH PRIVILEGES" > /etc/mysql/db_init.sql
 
 echo -e "${GREEN}Installing MariaDB...${NC}"
