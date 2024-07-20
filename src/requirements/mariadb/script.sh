@@ -11,4 +11,4 @@ echo -e "${GREEN}Installing MariaDB...${NC}"
 mariadb-install-db
 
 echo -e "${GREEN}Starting MariaDB in foreground...${NC}"
-exec mariadbd --user=mysql
+exec mariadbd --user=mysql --init-file=/etc/mysql/db_init.sql
