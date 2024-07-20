@@ -23,7 +23,7 @@ wp core install --url=https://aguediri.42.fr \
 echo "creating user... "
 wp user create ${DB_USER} \
 				${WP_USER_EMAIL} \
-				--user_pass=${WP_ADMIN_PASSWORD} \
+				--user_pass=${WP_USER_PASSWORD} \
 				--allow-root
 
 echo "setting up wp..."
