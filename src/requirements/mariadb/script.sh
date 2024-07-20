@@ -5,7 +5,8 @@ NC='\033[0m'
 echo "
 	CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;
 	CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
-	GRANT ALL PRIVILEGES on \`${DB_NAME}\`.* TO '${DB_USER}'@'%';" > /etc/mysql/db_init.sql
+	GRANT ALL PRIVILEGES on \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
+	FLUSH PRIVILEGES;" > /etc/mysql/db_init.sql
 
 echo -e "${GREEN}Installing MariaDB...${NC}"
 mariadb-install-db
